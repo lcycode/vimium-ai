@@ -3,7 +3,7 @@ import {
 } from "../lib/utils"
 import { removeHandler_, replaceOrSuppressMost_, getMappedKey, isEscape_, prevent_ } from "../lib/keyboard_utils"
 import {
-  isHTML_, createElement_, setClassName_s, appendNode_s, removeEl_s, textContent_s,
+  isHTML_, createElement_, setClassName_s, appendNode_s, textContent_s,
   setDisplaying_s, toggleClass_s
 } from "../lib/dom_utils"
 import { adjustUI, addUIElement } from "./dom_ui"
@@ -24,6 +24,7 @@ let answerEl_: HTMLDivElement | null = null
 let historyEl_: HTMLDivElement | null = null
 let statusEl_: HTMLDivElement | null = null
 let isActive = false
+let isVisible = false
 let isStreaming = false
 let conversationId_ = 0
 let history_: AIBarNS.Message[] = []
@@ -125,27 +126,60 @@ const renderHistory = (): void => {
   if (historyEl_.scrollHeight) { historyEl_.scrollTop = historyEl_.scrollHeight }
 }
 
-export const hide = (_fromInner?: 0 | 1 | 2): void => {
-  if (!isActive) { return }
-  isActive = false
+const onSendTimeout = (): void => {
+  if (!isStreaming) { return }
+  setStatus("请求超时（45 秒未返回）。请在选项页检查 API endpoint 格式（如 https://api.deepseek.com）和 API key 是否正确。", true)
+  statusEl_ && (statusEl_.style.display = "block")
   isStreaming = false
+  if (isVisible && input_) { input_.focus() }
+}
+
+const onKeyHandler = (event: HandlerNS.Event): SimpleKeyResult => {
+  const key = getMappedKey(event, kModeId.NO_MAP_KEY)
+  if (isEscape_(key)) {
+    prevent_(event.e)
+    hide()
+    return HandlerResult.Prevent
+  }
+  // let everything else flow to the focused textarea
+  return HandlerResult.Nothing
+}
+
+/** re-show a panel that was hidden, keeping its history, input text and streaming state */
+const show = (): void => {
+  if (!box) { return }
+  isActive = true
+  isVisible = true
+  box.style.display = "flex"
+  adjustUI(1)
+  replaceOrSuppressMost_(kHandler.aiBar, onKeyHandler)
+  if (isStreaming) {
+    // the send timeout was cleared on hide; re-arm it so a hung request doesn't lock the panel forever
+    clearSendTimeout()
+    timeoutId_ = setTimeout(onSendTimeout, 45000)
+  }
+  if (input_) { input_.focus() }
+}
+
+export const hide = (_fromInner?: 0 | 1 | 2): void => {
+  if (!isVisible) { return }
+  isVisible = false
   clearSendTimeout()
   clearAckTimeout()
   removeHandler_(kHandler.aiBar)
-  if (box) {
-    setDisplaying_s(box, 0)
-    removeEl_s(box)
-    box = input_ = answerEl_ = historyEl_ = statusEl_ = null
-  }
+  if (box) { setDisplaying_s(box, 0) }
   adjustUI(2)
-  conversationId_++
-  history_ = []
 }
 
 export const activate = (_options: CmdOptions[kFgCmd.aiBar], _count: number): void => {
   if (!isHTML_()) { return }
-  if (isActive) { hide() }
+  if (box) {
+    // already built once: pressing ":" toggles the panel, preserving history
+    isVisible ? hide() : show()
+    return
+  }
   isActive = true
+  isVisible = true
   history_ = []
   conversationId_++
 
@@ -249,13 +283,7 @@ export const activate = (_options: CmdOptions[kFgCmd.aiBar], _count: number): vo
         p: extractPageText(),
       })
       clearSendTimeout()
-      timeoutId_ = setTimeout((): void => {
-        if (!isStreaming) { return }
-        setStatus("请求超时（45 秒未返回）。请在选项页检查 API endpoint 格式（如 https://api.deepseek.com）和 API key 是否正确。", true)
-        statusEl_ && (statusEl_.style.display = "block")
-        isStreaming = false
-        if (input_) { input_.focus() }
-      }, 45000)
+      timeoutId_ = setTimeout(onSendTimeout, 45000)
       // if the background doesn't ack within 8s, the query likely never reached it
       clearAckTimeout()
       ackTimeoutId_ = setTimeout((): void => {
@@ -288,16 +316,7 @@ export const activate = (_options: CmdOptions[kFgCmd.aiBar], _count: number): vo
   input_.oninput = (event: Event): void => { event.stopPropagation() }
 
   // suppress the extension's own key handling while active, letting all keys into the textarea
-  replaceOrSuppressMost_(kHandler.aiBar, (event: HandlerNS.Event): SimpleKeyResult => {
-    const key = getMappedKey(event, kModeId.NO_MAP_KEY)
-    if (isEscape_(key)) {
-      prevent_(event.e)
-      hide()
-      return HandlerResult.Prevent
-    }
-    // let everything else flow to the focused textarea
-    return HandlerResult.Nothing
-  })
+  replaceOrSuppressMost_(kHandler.aiBar, onKeyHandler)
 
   input_.focus()
   adjustUI(1)
