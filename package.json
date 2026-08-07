@@ -1,0 +1,87 @@
+{
+  "name": "vimium-c",
+  "description": "A keyboard shortcut tool for keyboard-based page navigation and browser tab operations with an advanced omnibar and global shortcuts",
+  "author": "gdh1995",
+  "bugs": "https://github.com/gdh1995/vimium-c/issues",
+  "private": true,
+  "dependencies": {
+    "pngjs": "^7.0.0",
+    "terser": "^5.19.0",
+    "typescript": "^4.9.1"
+  },
+  "devDependencies": {
+    "clean-css": "^5.3.2",
+    "deepcopy": "^2.1.0",
+    "gulp": "^4.0.2",
+    "gulp-changed": "^4.0.3",
+    "gulp-concat": "*",
+    "gulp-newer": "*",
+    "gulp-print": "^5.0.2",
+    "gulp-some": "*",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "html-minifier": "^4.0.0",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.26.2",
+    "seedrandom": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7"
+  },
+  "homepage": "https://github.com/gdh1995/vimium-c#readme",
+  "license": "Apache-2.0",
+  "keywords": [
+    "vimium",
+    "webextension",
+    "chrome-extension",
+    "web-extension",
+    "all-in-keyboard",
+    "all-by-keyboard",
+    "keyboard",
+    "shortcut",
+    "chrome",
+    "firefox",
+    "edge"
+  ],
+  "optionalDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.29.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gdh1995/vimium-c.git"
+  },
+  "scripts": {
+    "tsc": "node scripts/tsc.js",
+    "watch": "node scripts/tsc.js --watch",
+    "dev": "node scripts/tsc.js --watch",
+    "all": "gulp tsc",
+    "prepare": "node scripts/icons-to-blob.js -q",
+    "lint": "node ./scripts/eslint.js",
+    "eslint": "node ./scripts/eslint.js",
+    "build": "gulp build",
+    "dist": "npm run chrome-latest",
+    "rebuild": "gulp rebuild",
+    "edge": "bash -c \"BUILD_BTypes=1 BUILD_MinCVer=${BUILD_MinCVer:-102}   BUILD_NeedCommit=1 BUILD_EdgeC=1 gulp dist && IN_DIST=1 BUILD_EdgeC=1 ./scripts/make.sh\"",
+    "chrome": "bash -c \"BUILD_BTypes=1 BUILD_MinCVer=${BUILD_MinCVer:-102}   BUILD_NeedCommit=1 gulp dist && IN_DIST=1 ./scripts/make.sh\"",
+    "csize": "bash -c \"BUILD_BTypes=${BUILD_BTypes:-1} BUILD_MinCVer=${BUILD_MinCVer:-102} BUILD_NeedCommit=0 gulp content/size\"",
+    "mv3-firefox": "bash -c \"BUILD_BTypes=2 BUILD_MinFFVer=${BUILD_MinFFVer:-101} BUILD_NeedCommit=1 gulp dist && IN_DIST=1 ./scripts/make.sh\"",
+    "debug": "bash -c \"BUILD_MinCVer=${BUILD_MinCVer:-89} gulp local2\"",
+    "legacy": "bash -c \"BUILD_BTypes=3 BUILD_MinCVer=${BUILD_MinCVer:-93} BUILD_MinFFVer=${BUILD_MinFFVer:-89} gulp local2\"",
+    "mv2-edge": "bash -c \"BUILD_MV3=0 BUILD_BTypes=1 BUILD_MinCVer=${BUILD_MinCVer:-89}  BUILD_NeedCommit=1 BUILD_EdgeC=1 gulp dist && IN_DIST=1 BUILD_EdgeC=1 ./scripts/make.sh\"",
+    "mv2-cr": "bash -c \"BUILD_MV3=0 BUILD_BTypes=1 BUILD_MinCVer=${BUILD_MinCVer:-47}  BUILD_NeedCommit=1 gulp dist && IN_DIST=1 ./scripts/make.sh\"",
+    "mv2-ff": "bash -c \"BUILD_MV3=0 BUILD_BTypes=2 BUILD_MinFFVer=${BUILD_MinFFVer:-101} BUILD_NeedCommit=1 gulp dist && IN_DIST=1 ./scripts/make.sh\"",
+    "mv2-edge-e": "bash -c \"BUILD_MV3=0 BUILD_BTypes=4 BUILD_MinCVer=${BUILD_MinCVer:-53}  BUILD_NeedCommit=1 gulp dist && IN_DIST=1 ./scripts/make.sh\"",
+    "mv2-debug": "bash -c \"BUILD_MV3=0 BUILD_MinCVer=${BUILD_MinCVer:-32} BUILD_BTypes=1 gulp local2\"",
+    "mv2-debug-ff": "bash -c \"BUILD_MV3=0 BUILD_BTypes=2 BUILD_MinCVer=${BUILD_MinCVer:-57} BUILD_MinFFVer=${BUILD_MinFFVer:-63} gulp local2\"",
+    "chromium": "npm run chrome",
+    "clean": "gulp clean",
+    "clear": "gulp clean",
+    "nclean": "bash -c \"gulp clean\"",
+    "local": "gulp local",
+    "start": "gulp local",
+    "test": "gulp test"
+  },
+  "version": "2.0.0"
+}

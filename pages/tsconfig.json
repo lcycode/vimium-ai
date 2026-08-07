@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "module": "es6",
+    "outDir": "..",
+    "rootDir": "..",
+    "tsBuildInfoFile": "../scripts/.ts.pages.build",
+  },
+  "include": [
+    "define.ts",
+    "async_bg.ts",
+    "loader.ts",
+    "options*.ts",
+    "show.ts"
+  ],
+  "extends": "../tsconfig.base.json"
+}
