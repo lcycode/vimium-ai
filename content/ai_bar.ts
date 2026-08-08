@@ -136,18 +136,72 @@ const onSendTimeout = (): void => {
 
 const onKeyHandler = (event: HandlerNS.Event): SimpleKeyResult => {
   const key = getMappedKey(event, kModeId.NO_MAP_KEY)
-  if (isEscape_(key)) {
+  // while an IME composition is in progress, Enter/Escape belong to the input method
+  // (commit / cancel the candidate), not to the panel
+  if (isEscape_(key) && !event.e.isComposing) {
     prevent_(event.e)
     hide()
     return HandlerResult.Prevent
   }
-  if (key === ":") {
-    // only Escape may close the panel; ":" must never toggle it, so the key
-    // types normally into any focused text box instead of closing the panel
-    return HandlerResult.Suppress
+  if (event.e.key === "Enter" && !event.e.shiftKey && !event.e.isComposing) {
+    // Enter sends the question; Shift+Enter inserts a newline via the default action
+    prevent_(event.e)
+    onSend()
+    return HandlerResult.Prevent
   }
-  // let everything else flow to the focused textarea
-  return HandlerResult.Nothing
+  // While the panel is open, block every other Vimium key function so the focused
+  // textarea receives the keystrokes: returning Suppress stops the key-handler
+  // chain (no scroll / link hints / ...) yet does not preventDefault, so the
+  // browser still performs its default action and types the character.
+  // Only Escape may close the panel; ":" just types like any other character.
+  return HandlerResult.Suppress
+}
+
+/** send the current question to the background (triggered by Enter or the Send button) */
+const onSend = (): void => {
+  if (isStreaming || !input_) { return }
+  const q = input_.value.trim()
+  if (!q) { return }
+  isStreaming = true
+  input_.value = ""
+  // show user message immediately
+  if (historyEl_) {
+    const div = createElement_("div")
+    setClassName_s(div, "VC-AI-q")
+    textContent_s(div, q)
+    appendNode_s(historyEl_, div)
+  }
+  history_.push({ r: "user", c: q })
+  if (answerEl_) {
+    answerEl_.innerHTML = ""
+    answerEl_.style.display = "block"
+    answerEl_.textContent = "…"
+  }
+  setStatus("正在发送请求…（等待后台确认）")
+  statusEl_ && (statusEl_.style.display = "block")
+  try {
+    if (!Build.NDEBUG) { console.log("[AI] sending query id=", conversationId_) }
+    post_({
+      H: kFgReq.aiQuery,
+      i: conversationId_,
+      q,
+      h: history_,
+      p: extractPageText(),
+    })
+    clearSendTimeout()
+    timeoutId_ = setTimeout(onSendTimeout, 45000)
+    // if the background doesn't ack within 8s, the query likely never reached it
+    clearAckTimeout()
+    ackTimeoutId_ = setTimeout((): void => {
+      if (!isStreaming) { return }
+      setStatus("后台未确认收到请求（8 秒内无响应）。请打开 chrome://extensions → Vimium C → 点“service worker”查看其 console 是否有 [AI] handleAiQuery 日志；若没有，说明消息未到达后台。", true)
+      statusEl_ && (statusEl_.style.display = "block")
+    }, 8000)
+  } catch (e) {
+    setStatus("发送失败: " + (e as Error).message, true)
+    isStreaming = false
+    if (input_) { input_.focus() }
+  }
 }
 
 /** re-show a panel that was hidden, keeping its history, input text and streaming state */
@@ -259,65 +313,12 @@ export const activate = (_options: CmdOptions[kFgCmd.aiBar], _count: number): vo
   // so the very first ":" press works even before any other UI (link hints / HUD) has run
   addUIElement(box, AdjustType.DEFAULT)
 
-  const onSend = (): void => {
-    if (isStreaming || !input_) { return }
-    const q = input_.value.trim()
-    if (!q) { return }
-    isStreaming = true
-    input_.value = ""
-    // show user message immediately
-    if (historyEl_) {
-      const div = createElement_("div")
-      setClassName_s(div, "VC-AI-q")
-      textContent_s(div, q)
-      appendNode_s(historyEl_, div)
-    }
-    history_.push({ r: "user", c: q })
-    if (answerEl_) {
-      answerEl_.innerHTML = ""
-      answerEl_.style.display = "block"
-      answerEl_.textContent = "…"
-    }
-    setStatus("正在发送请求…（等待后台确认）")
-    statusEl_ && (statusEl_.style.display = "block")
-    try {
-      if (!Build.NDEBUG) { console.log("[AI] sending query id=", conversationId_) }
-      post_({
-        H: kFgReq.aiQuery,
-        i: conversationId_,
-        q,
-        h: history_,
-        p: extractPageText(),
-      })
-      clearSendTimeout()
-      timeoutId_ = setTimeout(onSendTimeout, 45000)
-      // if the background doesn't ack within 8s, the query likely never reached it
-      clearAckTimeout()
-      ackTimeoutId_ = setTimeout((): void => {
-        if (!isStreaming) { return }
-        setStatus("后台未确认收到请求（8 秒内无响应）。请打开 chrome://extensions → Vimium C → 点“service worker”查看其 console 是否有 [AI] handleAiQuery 日志；若没有，说明消息未到达后台。", true)
-        statusEl_ && (statusEl_.style.display = "block")
-      }, 8000)
-    } catch (e) {
-      setStatus("发送失败: " + (e as Error).message, true)
-      isStreaming = false
-      if (input_) { input_.focus() }
-    }
-  }
-
   sendBtn.onclick = onSend
 
-  input_.onkeydown = (event: KeyboardEvent): void => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      prevent_(event as never)
-      onSend()
-    } else if (event.key === "Escape") {
-      prevent_(event as never)
-      hide()
-    }
-    // stop propagation so Vimium C's global handler doesn't intercept
-    event.stopPropagation()
-  }
+  // Enter (send) and Escape (close) are handled by onKeyHandler, which sits at
+  // the top of the key-handler stack and stops those events before they reach
+  // the textarea; keep propagation stopped here only as a defensive measure.
+  input_.onkeydown = (event: KeyboardEvent): void => { event.stopPropagation() }
   input_.onkeyup = (event: KeyboardEvent): void => { event.stopPropagation() }
   input_.onkeypress = (event: KeyboardEvent): void => { event.stopPropagation() }
   input_.oninput = (event: Event): void => { event.stopPropagation() }
