@@ -141,6 +141,11 @@ const onKeyHandler = (event: HandlerNS.Event): SimpleKeyResult => {
     hide()
     return HandlerResult.Prevent
   }
+  if (key === ":") {
+    // only Escape may close the panel; ":" must never toggle it, so the key
+    // types normally into any focused text box instead of closing the panel
+    return HandlerResult.Suppress
+  }
   // let everything else flow to the focused textarea
   return HandlerResult.Nothing
 }
@@ -174,8 +179,10 @@ export const hide = (_fromInner?: 0 | 1 | 2): void => {
 export const activate = (_options: CmdOptions[kFgCmd.aiBar], _count: number): void => {
   if (!isHTML_()) { return }
   if (box) {
-    // already built once: pressing ":" toggles the panel, preserving history
-    isVisible ? hide() : show()
+    // already built once: pressing ":" only re-shows the panel after Escape hid it,
+    // and never hides it — only Escape closes the panel, so ":" can be typed in text boxes
+    if (isVisible) { return }
+    show()
     return
   }
   isActive = true
