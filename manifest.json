@@ -145,8 +145,8 @@
     "webNavigation"
   ],
   "short_name": "Vimium AI",
-  "version": "2.0.0",
-  "version_name": "2.0.0",
+  "version": "2.0.1",
+  "version_name": "2.0.1",
   "web_accessible_resources": [
     {
       "resources": [
