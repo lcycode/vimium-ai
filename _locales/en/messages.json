@@ -24,7 +24,7 @@
     "message": "Vimium AI - All by Keyboard"
   },
   "description": {
-    "message": "A keyboard shortcut tool for keyboard-based page navigation and browser tab operations with an advanced omnibar and global shortcuts Includes an AI command bar (press `:`) that explains the current page via a DeepSeek-compatible API."
+    "message": "Keyboard-driven navigation, tab control, omnibar and global shortcuts, plus an AI command bar (`:`) via a OpenAI-compatible API."
   },
   "lang1": {
     "message": ""

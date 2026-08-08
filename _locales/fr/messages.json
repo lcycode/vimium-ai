@@ -24,7 +24,7 @@
     "message": "Vimium AI - Tout par le clavier"
   },
   "description": {
-    "message": "Outil de raccourcis clavier pour une navigation de page centrée sur l'usage du clavier, des opérations sur les onglets du navigateur avec une omnibar avancée ainsi que des raccourcis globaux"
+    "message": "Navigation au clavier, onglets, omnibarre et raccourcis, plus une barre de commande IA (`:`) via une API compatible DeepSeek."
   },
   "lang1": {
     "message": "fr"

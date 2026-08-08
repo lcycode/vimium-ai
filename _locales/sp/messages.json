@@ -24,7 +24,7 @@
     "message": "Vimium AI - Todo vía teclado"
   },
   "description": {
-    "message": "Una herramienta de atajos de teclado para navegación de páginas basada en el teclado y operaciones con pestañas del navegador con un omnibar avanzado y atajos globales"
+    "message": "Navegación por teclado, pestañas, omnibarra y atajos, más una barra de comandos IA (`:`) vía una API compatible con DeepSeek."
   },
   "lang1": {
     "message": "sp"
