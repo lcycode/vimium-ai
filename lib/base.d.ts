@@ -164,7 +164,7 @@ type GoNextBaseCandidate = [element: Hint0[0], api: VApiTy, score?: number, text
 interface GoNextCandidate extends GoNextBaseCandidate { [2]: number; [3]: string }
 
 declare const enum AdjustType {
-  /** Note(gdh1995): NotAdjust must be used carefully: @see {@link dom_ui.ts#addUIElement : setUICSS} */
+  /** Note: NotAdjust must be used carefully: @see {@link dom_ui.ts#addUIElement : setUICSS} */
   NotAdjust = 0, Normal = 1, MustAdjust = 2, DEFAULT = Normal,
 }
 

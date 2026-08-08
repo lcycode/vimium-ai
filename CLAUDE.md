@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-Vimium C is a browser extension (Chrome/Firefox/Edge) providing keyboard-based navigation and control. It is a TypeScript fork of philc/vimium, maintained by gdh1995. Licensed Apache-2.0.
+Vimium C is a browser extension (Chrome/Firefox/Edge) providing keyboard-based navigation and control. It is a TypeScript fork of philc/vimium, maintained by lcy. Licensed Apache-2.0.
 
 ## Build & development commands
 

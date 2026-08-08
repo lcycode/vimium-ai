@@ -1,8 +1,8 @@
 {
   "name": "vimium-c",
   "description": "A keyboard shortcut tool for keyboard-based page navigation and browser tab operations with an advanced omnibar and global shortcuts",
-  "author": "gdh1995",
-  "bugs": "https://github.com/gdh1995/vimium-c/issues",
+  "author": "lcycode",
+  "bugs": "https://github.com/lcycode/vimium-ai/issues",
   "private": true,
   "dependencies": {
     "pngjs": "^7.0.0",
@@ -28,7 +28,7 @@
     "node": ">=14",
     "npm": ">=7"
   },
-  "homepage": "https://github.com/gdh1995/vimium-c#readme",
+  "homepage": "https://github.com/lcycode/vimium-ai#readme",
   "license": "Apache-2.0",
   "keywords": [
     "vimium",
@@ -50,7 +50,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gdh1995/vimium-c.git"
+    "url": "https://github.com/lcycode/vimium-ai.git"
   },
   "scripts": {
     "tsc": "node scripts/tsc.js",

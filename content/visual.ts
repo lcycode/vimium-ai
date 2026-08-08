@@ -1,5 +1,5 @@
 /**
- * Note(gdh1995):
+ * Note:
  * - @unknown_di_result: means it does not guarantee anything about @di
  * - @safe_di: means it accepts any @di and will force @di to be correct on return
  * - @tolerate_di_if_caret: means it only allows a wrong di in caret mode, and always returns with a correct di

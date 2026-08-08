@@ -3,24 +3,18 @@
   <span style="color: #2f508e;">Vim</span>ium <span style="color: #a55e18;">AI</span> - All by Keyboard
 </h2>
 
-> **Personal fork / 个人分支**
+[📖 中文版说明 · Chinese README](README-zh.md)
+
+> **AI command bar**
 >
-> This is a **personal fork** of [`gdh1995/vimium-c`](https://github.com/gdh1995/vimium-c),
-> released under the same [Apache-2.0 license](LICENSE.txt) (with MIT / CC-BY-SA parts).
-> It is **not** the official project; please report upstream bugs to the
-> [upstream repository](https://github.com/gdh1995/vimium-c).
-> The main addition is an **AI command bar**: press `:` to ask a DeepSeek-compatible API to explain
-> the current page. The extension sends the extracted page text and your question to the AI provider
-> you configure in the options page. It stays fully inert until you set an API key.
+> Set an API key in the options page, then press `:` — just like Vim's command line — to start a
+> **continuous multi-turn conversation** with a large language model. The model reads the current page,
+> so it can help you **understand the page, explain concepts, and translate text**. The conversation
+> keeps a single context per page and continues across turns; **refreshing the page resets the context**.
 >
-> 这是 [`gdh1995/vimium-c`](https://github.com/gdh1995/vimium-c) 的**个人分支**，沿用其
-> [Apache-2.0 许可协议](LICENSE.txt)（含 MIT / CC-BY-SA 部分）。**并非**官方项目，上游问题请反馈到
-> [上游仓库](https://github.com/gdh1995/vimium-c)。主要新增功能为 **AI 命令栏**：按 `:`
-> 可让 DeepSeek 等兼容 API 解释当前网页；扩展会把页面文本和你的提问发送到你在选项页配置的 AI 服务商，
-> 未配置 API key 时该功能完全不会启用。
->
-> Original work © Gong Dahan (gdh1995). Additional modifications © lcy (2026).
-> 原作品版权归宫大汉（gdh1995）；后续修改版权归 lcy（2026）。详见 [LICENSE.txt](LICENSE.txt) 与 [NOTICE](NOTICE)。
+> This is a **personal fork** of Vimium C, released under the same Apache-2.0 license
+> (with MIT / CC-BY-SA parts), and is **not** the official project; the upstream is credited in the
+> Copyright section at the end of this file. It stays fully inert until you set an API key.
 
 [![Version](https://img.shields.io/github/v/release/lcycode/vimium-ai?logo=GitHub&label=lcycode%2Fvimium-ai&color=critical
   )](https://github.com/lcycode/vimium-ai/releases)
@@ -38,40 +32,13 @@ A <span style="color: #a55e18;">C</span>ustomized
   and [inje**c**tion](https://github.com/gdh1995/vimium-c/wiki/Inject-into-other-extensions) functionality,
   in <span style="color: #a55e18;">**C**</span>-style code for qui**c**ker action and less resource **c**ost.
 
-[<span style="color: #2f508e;">Vim</span>ium](https://github.com/philc/vimium) 的一款<span
-  style="color: #a55e18;">修改版</span>（可以用键盘点击网页内容、操作浏览器窗口），添加了完整的<span
-  style="color: #a55e18;">中文</span>支持、[分场景映射](https://github.com/gdh1995/vimium-c/wiki/Map-a-key-to-different-commands-on-different-websites
-  )、[全局快捷键](https://github.com/gdh1995/vimium-c/wiki/Trigger-commands-in-an-input-box#user-content-shortcut
-  )和[命令序列](https://github.com/gdh1995/vimium-c/wiki/Auto-run-a-tree-of-commands
-  )功能，还能运行在某些接受 Vimium C
-  的[扩展程序的私有页面](https://github.com/gdh1995/vimium-c/wiki/Inject-into-other-extensions)里，并且对CPU和内存资源的<span
-  style="color: #a55e18;">消耗很低</span>。
-
-[阅读中文介绍 (description in Chinese) 。](README-zh.md)
-
-This project is mainly developed and maintained by [gdh1995](https://github.com/gdh1995) (Gong Dahan),
-and open-sourced under the [Apache-2.0 license](LICENSE.txt).
-
-本项目主要由 [gdh1995](https://github.com/gdh1995)（宫大汉）开发并维护，且以 [Apache-2.0 许可协议](LICENSE.txt) 开源。
-
 It (the released version) supports the new Microsoft Edge, Google Chrome and other Chromium-based browsers
   whose core versions are >= 102, and has a perfect support for a recent Firefox (since version 101.0, desktop).
 It can even run on Microsoft Edge (EdgeHTML), though there're still some errors.
-If re-compiled from the source code, Vimium C is able to support Chromium 32~108 and Firefox 63~100.
-
-它支持内核版本不低于 102 的新版 Microsoft Edge、Google Chrome 和其它以 Chromium 为内核的浏览器，
-同时也能完美运行在近些年发布的 Firefox 101（桌面版）和更高版本上，甚至在 Edge (EdgeHTML 内核) 上也能正常执行大部分命令。
-如果从源码重新编译，Vimum C 还可以支持 Chromium 32~108 和 Firefox 63~100。
-
-![Usage Demo of Vimium C](https://gdh1995.cn/vimium-c/demo.gif)
-
-This fork is hosted on https://github.com/lcycode/vimium-ai , based on
-https://github.com/gdh1995/vimium-c and https://gitee.com/gdh1995/vimium-c .
+If re-compiled from the source code, Vimium AI is able to support Chromium 32~108 and Firefox 63~100.
 
 Some old code of Vimium C was under the MIT license,
 and you may get it in https://github.com/gdh1995/vimium-c/tree/MIT-licensed-v1 .
-
-Vimium C 的部分旧代码以 MIT 许可协议开源，可以前往 https://github.com/gdh1995/vimium-c/tree/MIT-licensed-v1 获得源码。
 
 An old name of this project is "Vimium++", which has been given up on 2018-08-21.
 
@@ -83,7 +50,19 @@ Modifier keys are specified as `<c-x>`, `<m-x>`, and `<a-x>` for Ctrl+x, Meta+x,
 For Shift+X and Ctrl+Shift+X, just type `X` and `<c-s-x>`.
 See the next section for how to customize these bindings.
 
-Once you have Vimium C installed, you can see this list of key bindings at any time by typing `?`.
+Once you have Vimium AI installed, you can see this list of key bindings at any time by typing `?`.
+
+Interacting with the AI command bar:
+
+    :           open the AI command bar and start a conversation
+    <enter>     send the current message
+    <s-enter>   insert a newline
+    <esc>       close the AI command bar
+
+The model reads the current page, so you can ask it to explain concepts,
+translate text, or summarize what you're reading. The conversation keeps a
+single context per page and continues across turns; refreshing the page
+resets the context.
 
 Navigating the current page:
 
@@ -165,7 +144,7 @@ Additional advanced browsing commands:
     V       enter visual line mode
     yc      select a first word of a sentence and enter visual mode
 
-Vimium C supports command repetition so, for example, hitting `5t` will open 5 tabs in rapid succession. `<esc>`
+Vimium AI supports command repetition so, for example, hitting `5t` will open 5 tabs in rapid succession. `<esc>`
 (or `<c-[>`) will clear any partial commands in the queue and will also exit insert and find modes.
 
 There are some advanced commands which aren't documented here; refer to the help dialog (type `?`) for a full list.
@@ -174,17 +153,17 @@ There are some advanced commands which aren't documented here; refer to the help
 # Custom Key Mappings
 _This section is modified from [philc/vimium 's](https://github.com/philc/vimium#custom-key-mappings)._
 
-When you have just installed Vimium C, it will open a new tab to show its default key mappings,
-and you may also open Vimium C's options page and press `?` (usually it's `Shift+/`) to show those mappings again.
+When you have just installed Vimium AI, it will open a new tab to show its default key mappings,
+and you may also open Vimium AI's options page and press `?` (usually it's `Shift+/`) to show those mappings again.
 
 You may remap or unmap any of the default key bindings in the "Custom key mappings" on the options page.
 
 Enter one of the following key mapping commands per line:
 
-* `map <key> command`: Maps a _key_ to a Vimium C command. Overrides web pages' default behavior (if any).
-* `mapKey <key> <another_key>`: Let Vimium C treat _key_ as _another key_. Can not affect your browser or web pages.
+* `map <key> command`: Maps a _key_ to a Vimium AI command. Overrides web pages' default behavior (if any).
+* `mapKey <key> <another_key>`: Let Vimium AI treat _key_ as _another key_. Can not affect your browser or web pages.
 * `unmap <key>`: Unmaps a key and restores the default behavior (if any).
-* `unmapAll`: Unmaps all bindings. This is useful if you want to completely wipe Vimium C's default commands and start
+* `unmapAll`: Unmaps all bindings. This is useful if you want to completely wipe Vimium AI's default commands and start
   from scratch with your own setup.
 
 Examples:
@@ -195,7 +174,7 @@ Examples:
 * `unmap <c-d>` removes any mapping for Ctrl+D and restores web page or browser's default behavior.
 * `unmap g0` removes any mapping for a `g` key and a next `0` key.
 
-Available Vimium C commands can be found via the "Show available commands" link or `?` key on the options page.
+Available Vimium AI commands can be found via the "Show available commands" link or `?` key on the options page.
 The command name appears to the right of the description in parenthesis.
 
 You can add comments to key mappings by starting a line with `"` or `#`, or a space character and a next `#` in a line.
@@ -230,9 +209,9 @@ Here're some advanced usages which are different with philc/vimium:
 
 # Project Introduction
 
-__<span style="color: #2f508e;">Vim</span>ium <span style="color: #a55e18;">C</span>:__
+__<span style="color: #2f508e;">Vim</span>ium <span style="color: #a55e18;">AI</span>:__
 
-* [中文介绍 (description in Chinese)](README-zh.md)
+* [Chinese description](README-zh.md)
 * a web extension for Firefox, Microsoft Edge and Google Chrome that provides keyboard-based navigation and control
     of the web, in the spirit of the Vim editor.
 * add some powerful functions and provide more configurable details and convenience.
@@ -261,7 +240,7 @@ __Other extensions supporting Vimium C:__
     [Chrome Web Store](
       https://chrome.google.com/webstore/detail/shortcut-forwarding-tool/clnalilglegcjmlgenoppklmfppddien)
   * project home: [vimium-c-helpers/shortcuts](https://github.com/gdh1995/vimium-c-helpers/tree/master/shortcuts#readme)
-* Modified Weidu New Tab (微度新标签页修改版)
+* Modified Weidu New Tab
   * a modified and lite version of [www.weidunewtab.com](http://www.weidunewtab.com/) (or
       [www.newtabplus.com](http://www.newtabplus.com/) ), with Chinese translation only
   * it does not take over browser's new tab settings; if needed then [NewTab Adapter](
@@ -300,31 +279,7 @@ while `gulp dist` compiles and minimizes files into `dist/`.
 The options including `MinCVer` and `BTypes` in [gulp.tsconfig.json](scripts/gulp.tsconfig.json)
   are used to control supported target browsers and set a minimum browser version.
 
-<a name="donate"></a><a name="donating"></a><a name="donation"></a>
-
-# Donating / 捐赠
-
-Vimium C is an open-source browser extension, and everyone can install and use it free of charge.
-If you indeed want to give its author ([gdh1995@qq.com](https://github.com/gdh1995)) financial support,
-you may donate any small amount of money to him through
-  [Open Collective](https://opencollective.com/vimium-c), [PayPal](https://www.paypal.me/gdh1995),
-  [Alipay](https://intl.alipay.com/) or [WeChat](https://www.wechat.com/). Thanks a lot!
-
-Vimium C 是一款开源的浏览器扩展程序，任何人都可以安装使用它而无需支付任何费用。
-如果您确实想要资助它的开发者（[gdh1995@qq.com](https://github.com/gdh1995)），
-可以通过[支付宝](https://www.alipay.com/)、[微信](https://weixin.qq.com/)、[Open Collective](
-    https://opencollective.com/vimium-c)
-或 [PayPal](https://www.paypal.me/gdh1995) 无偿赠与他一小笔钱。谢谢您的支持！
-
-A partial donation list is in / 部分捐赠列表详见: https://github.com/gdh1995/vimium-c/wiki/Donation-List .
-
-<img width="240" alt="gdh1995 的支付宝二维码" src="https://gdh1995.cn/alipay-recv-money.png"
-  /> <img width="240" alt="gdh1995 的微信赞赏码" src="https://gdh1995.cn/wechat-recv-money.png"
-  /> <img width="240" alt="PayPal QRCode of gdh1995" src="https://gdh1995.cn/paypal-recv-money.png" />
-
 # Thanks & Licenses
-
-Vimium C: Copyright (c) Gong Dahan. See the [Apache-2.0 license](LICENSE.txt) for details.
 
 The translation files in [_locales/](https://github.com/gdh1995/vimium-c/tree/master/_locales) belong to
   [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/),
@@ -349,24 +304,22 @@ except some of those English sentences which are the same as [philc/vimium](http
   Licensed under the [MIT license](
     https://github.com/silentmatt/expr-eval/blob/4327f05412a3046a9b527b6ec3b50843cb0428e8/LICENSE.txt).
 * The orange picture in the icon is from https://pixabay.com/vectors/orange-fruit-mandarin-citrus-fruit-158258/
-* [微度新标签页](http://www.weidunewtab.com/):
-  Copyright (c) 2012 杭州佐拉网络有限公司 保留所有权利.
+* [Weidu New Tab](http://www.weidunewtab.com/):
+  Copyright (c) 2012 Hangzhou Zola Network Co., Ltd. All rights reserved.
 * [PDF.js](https://github.com/mozilla/pdf.js/):
   Copyright (c) Mozilla and individual contributors.
   Licensed under the [Apache License 2.0](https://github.com/mozilla/pdf.js/blob/master/LICENSE).
 
-# Declaration for Applicable Regions
+---
 
-The [Vimium C](https://microsoftedge.microsoft.com/addons/detail/vimium-c/aibcglbfblnogfjhbcmmpobjhnomhcdo)
-    and other extensions published by [gdh1995](https://github.com/gdh1995)
-    are available for all people in *"all regions"*
-    of Microsoft Edge Add-ons, Chrome Web Store and some other markets.
-This behavior is only to make these extensions easier to use, but<br>
-**DOES NOT EXPRESS OR IMPLIED** the author (gdh1995) "agrees or has no objection to"
-    that "Taiwan" can be parallel to "China",
-    which was an **inappropriate** status quo in the stores' (developer) pages on 2021-06-03.
+# Copyright
 
-According to [The Constitution of the People's Republic of China](
-    http://www.npc.gov.cn/npc/c505/201803/e87e5cd7c1ce46ef866f4ec8e2d709ea.shtml)
-    and international consensus,
-***Taiwan is an inalienable part of the sacred territory of the People's Republic of China***.
+Vimium C — Copyright © Gong Dahan (gdh1995). Upstream:
+[github.com/gdh1995/vimium-c](https://github.com/gdh1995/vimium-c).
+
+vimium-ai — additional modifications © lcycode (2026), hosted at
+[github.com/lcycode/vimium-ai](https://github.com/lcycode/vimium-ai).
+
+Both are released under the [Apache-2.0 license](LICENSE.txt), with MIT-licensed
+code (before 2023-07-15) and CC-BY-SA-4.0 translations. See [NOTICE](NOTICE) for
+the full attribution.

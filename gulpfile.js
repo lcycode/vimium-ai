@@ -416,7 +416,7 @@ var Tasks = {
     } else {
       cmd += `npm run ${isEdge ? "mv2-edge" : getBuildItem("BTypes") === BrowserType.Firefox ? "mv2-ff" : "mv2-cr"}`
     }
-    let clone = shortCommit && `>>> git clone https://github.com/gdh1995/vimium-c.git`
+    let clone = shortCommit && `>>> git clone https://github.com/lcycode/vimium-ai.git`
     let checkout = shortCommit && `>>> git checkout ${getGitCommit(-1) || shortCommit}`
     let install_deps = `npm ci`
     let fullCmds = [clone, checkout, install_deps, cmd].map(i => i && i.trim()).filter(i => i)

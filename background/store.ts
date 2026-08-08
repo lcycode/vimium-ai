@@ -270,7 +270,7 @@ export const CONST_ = {
   OffscreenFrame_: "/front/offscreen.html",
   HelpDialogJS: "/background/help_dialog.js" as const,
   OptionsPage_: GlobalConsts.OptionsPage as string, Platform_: "browser", BrowserName_: "",
-  HomePage_: "https://github.com/gdh1995/vimium-c",
+  HomePage_: "https://github.com/lcycode/vimium-ai",
   GlobalCommands_: null as never as StandardShortcutNames[],
   ShowPage_: "/pages/show.html",
   VomnibarPageInner_: "", VomnibarScript_: "/front/vomnibar.js", VomnibarScript_f_: ""

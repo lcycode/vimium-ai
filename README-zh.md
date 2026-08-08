@@ -3,14 +3,20 @@
   <span style="color: #2f508e;">Vim</span>ium <span style="color: #a55e18;">AI</span> - 全键盘操作浏览器
 </h2>
 
-> **个人分支**
+> **功能亮点 · AI command bar**
 >
-> 这是 [`gdh1995/vimium-c`](https://github.com/gdh1995/vimium-c) 的**个人分支**，沿用其
-> [Apache-2.0 许可协议](LICENSE.txt)（含 MIT / CC-BY-SA 部分）。**并非**官方项目，上游问题请反馈到
-> [上游仓库](https://github.com/gdh1995/vimium-c)。主要新增功能为 **AI 命令栏**：按 `:`
-> 可让 DeepSeek 等兼容 API 解释当前网页；扩展会把页面文本和你的提问发送到你在选项页配置的 AI 服务商，
-> 未配置 API key 时该功能完全不会启用。原作品版权归宫大汉（gdh1995）；后续修改版权归 lcy（2026）。
-> 详见 [LICENSE.txt](LICENSE.txt) 与 [NOTICE](NOTICE)。
+> 只需在选项页设置好 API key，即可像 Vim 的命令行一样按 `:` 调用大模型，开启**连续的多轮对话**。
+> AI 能读取当前网页内容，帮你**理解网页、解释概念、翻译文本**。同一网页内上下文连续，
+> **刷新网页后上下文重置**。
+>
+> Set an API key in the options page, then press `:` — just like Vim's command line — to start a
+> **continuous multi-turn conversation** with a large language model. The model reads the current page,
+> so it can help you **understand the page, explain concepts, and translate text**. The conversation
+> keeps a single context per page and continues across turns; **refreshing the page resets the context**.
+>
+> 这是 Vimium C 的**个人分支**，沿用其
+> [Apache-2.0 许可协议](LICENSE.txt)（含 MIT / CC-BY-SA 部分）。**并非**官方项目。
+> 未配置 API key 时该功能完全不会启用。
 
 [![版本](https://img.shields.io/github/v/release/lcycode/vimium-ai?logo=GitHub&label=lcycode%2Fvimium-ai&color=critical
   )](https://github.com/lcycode/vimium-ai/releases)
@@ -18,34 +24,41 @@
 [![GitHub 收藏](https://img.shields.io/github/stars/lcycode/vimium-ai?logo=GitHub&label=收藏&labelColor=181717&color=critical
   )](https://github.com/lcycode/vimium-ai/stargazers)
 
-Vimium C 是一款开源、免费的键盘增强类浏览器扩展，支持为多种多样的命令任意设置快捷键。
+Vimium AI 是一款开源、免费的键盘增强类浏览器扩展，支持为多种多样的命令任意设置快捷键。
 只要有键盘，您就能自由点击网页中的链接和按钮、选择和复制文字和网址，也能轻松操作浏览器标签页，
 还能在一个便捷的搜索框中随意搜索历史记录、收藏夹和打开的标签页等等。
 
-Vimium C 支持 Firefox 101+、新版 Microsoft Edge 102+ 和 Chrome 102+ 等现代浏览器；
+Vimium AI 支持 Firefox 101+、新版 Microsoft Edge 102+ 和 Chrome 102+ 等现代浏览器；
 如果从源码重新编译，还可以支持 Chromium 32~108 和 Firefox 63~100。
 
 本项目的前身是[<span style="color: #2f508e;">Vim</span>ium](https://github.com/philc/vimium
-  )。和其相比，除了大量细节改进、新增很多命令参数外，Vimium C 添加了完整的 <span style="color: #a55e18;">中文
+  )。和其相比，除了大量细节改进、新增很多命令参数外，Vimium AI 添加了完整的 <span style="color: #a55e18;">中文
   </span>支持、[分场景映射](https://github.com/gdh1995/vimium-c/wiki/Map-a-key-to-different-commands-on-different-websites
   )、[全局快捷键](https://github.com/gdh1995/vimium-c/wiki/Trigger-commands-in-an-input-box#user-content-shortcut
   )和[命令序列](https://github.com/gdh1995/vimium-c/wiki/Auto-run-a-tree-of-commands
-  )功能，还能运行在某些接受 Vimium C 的扩展程序的私有页面里，并且对CPU和内存资源的<span
+  )功能，还能运行在某些接受 Vimium AI 的扩展程序的私有页面里，并且对CPU和内存资源的<span
     style="color: #a55e18;">消耗很低</span>。
 
-本项目主要由 [gdh1995](https://github.com/gdh1995) 开发并维护，
-且以 [Apache-2.0 许可协议](LICENSE.txt) 开源。
 除部分源自 [Vimium](https://github.com/philc/vimium) 的以 MIT 许可协议 开源的英文语句外，
 本项目的翻译文件（[_locales/](https://github.com/gdh1995/vimium-c/tree/master/_locales) 文件夹）归属于
 [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/)（创作共用-署名-相同方式共享 4.0）协议。
-
-本项目的主仓库是 https://github.com/gdh1995/vimium-c 和 https://gitee.com/gdh1995/vimium-c 。
 
 Vimium C 的部分旧代码以 MIT 许可协议开源，可以前往 https://github.com/gdh1995/vimium-c/tree/MIT-licensed-v1 获得源码。
 
 [Here's its description in English](README.md)（点击查看英文介绍）。
 
 # 主要功能
+
+## AI 命令栏
+
+在选项页设置好 API key 后，按 `:`（类似 Vim 的命令行）即可打开 AI 命令栏，与网页上的大模型开始连续对话：
+
+    :           打开 AI 命令栏，开始对话
+    <enter>     发送当前消息
+    <s-enter>   输入框内换行
+    <esc>       关闭 AI 命令栏
+
+AI 会读取当前网页内容，帮你理解网页、解释概念、翻译文本。同一网页内上下文连续，多轮对话不中断；刷新网页后上下文重置。
 
 ## 多种多样的命令
 
@@ -81,10 +94,10 @@ Vimium C 的部分旧代码以 MIT 许可协议开源，可以前往 https://git
 筛选网址时可使用正则表达式，指定的快捷键列表支持“只停用列表内”和“列表外全停用”（此时列表以 “^” 开头）两种模式。
 
 普通快捷键是通过 JavaScript 脚本程序识别的，存在被其它模块拦截的可能性，也无法在一些浏览器内置页面上使用。
-如果需要让快捷键在浏览器的任何地方都生效，Vimium C 提供了 8 个全局快捷键，可以自由绑定到任意所需命令上。
+如果需要让快捷键在浏览器的任何地方都生效，Vimium AI 提供了 8 个全局快捷键，可以自由绑定到任意所需命令上。
 但要注意全局快捷键不支持按网址规则停用。
 
-Vimium C 还提供了一个用于浏览器地址栏的搜索引擎 “v”，在地址栏输入 “v + 空格” 即可进入搜索模式。
+Vimium AI 还提供了一个用于浏览器地址栏的搜索引擎 “v”，在地址栏输入 “v + 空格” 即可进入搜索模式。
 此模式类似于按 字母O 显示的搜索框，会自动搜索历史记录和收藏夹，也能指定搜索引擎拼接想要的网址。
 输入 “v + 空格 + :t + 空格 + 关键词” 即会在已打开的标签页中搜索。
 
@@ -97,7 +110,7 @@ Vimium C 还提供了一个用于浏览器地址栏的搜索引擎 “v”，在
 
 ## 安全与隐私
 
-Vimium C 具有完善的安全机制：
+Vimium AI 具有完善的安全机制：
 * 处理网页内容时，及时清理使用痕迹，执行命令期间的文字输入、操作结果等等都会被很快丢弃
 * 上述搜索框支持设置屏蔽词来隐藏部分搜索结果（主动搜索了某屏蔽词时则不隐藏）
 * 当它收到来自其它扩展程序的消息时，会按照一份用户指定的受信任扩展标识符的列表来审核消息来源
@@ -138,43 +151,15 @@ Vimium C 具有完善的安全机制：
 
 参见 [RELEASE-NOTES.md](RELEASE-NOTES.md)（暂仅提供英文说明）。
 
+---
 
-<a name="donate"></a><a name="donating"></a><a name="donation"></a>
+# 版权 / Copyright
 
-# 捐赠 / Donating
+Vimium C — Copyright © Gong Dahan（宫大汉 / gdh1995）。上游：
+[github.com/gdh1995/vimium-c](https://github.com/gdh1995/vimium-c)。
 
+vimium-ai — 后续修改 © lcycode（2026），托管于
+[github.com/lcycode/vimium-ai](https://github.com/lcycode/vimium-ai)。
 
-Vimium C 是一款开源的浏览器扩展程序，任何人都可以安装使用它而无需支付任何费用。
-如果您确实想要资助它的开发者（[gdh1995@qq.com](https://github.com/gdh1995)），
-可以通过[支付宝](https://www.alipay.com/)、[微信](https://weixin.qq.com/)、[Open Collective](
-    https://opencollective.com/vimium-c)
-或 [PayPal](https://www.paypal.me/gdh1995) 无偿赠与他一小笔钱。谢谢您的支持！
-
-Vimium C is an open-source browser extension, and everyone can install and use it free of charge.
-If you indeed want to give its author ([gdh1995@qq.com](https://github.com/gdh1995)) financial support,
-you may donate any small amount of money to him through
-  [Open Collective](https://opencollective.com/vimium-c), [PayPal](https://www.paypal.me/gdh1995),
-  [Alipay](https://intl.alipay.com/) or [WeChat](https://www.wechat.com/). Thanks a lot!
-
-
-部分捐赠列表详见 / A partial donation list is in : https://github.com/gdh1995/vimium-c/wiki/Donation-List .
-
-<img width="240" alt="gdh1995 的支付宝二维码" src="https://gdh1995.cn/alipay-recv-money.png"
-  /> <img width="240" alt="gdh1995 的微信赞赏码" src="https://gdh1995.cn/wechat-recv-money.png"
-  /> <img width="240" alt="PayPal QRCode of gdh1995" src="https://gdh1995.cn/paypal-recv-money.png" />
-
-# 针对适用区域的声明
-
-[Vimium C](https://microsoftedge.microsoft.com/addons/detail/vimium-c/aibcglbfblnogfjhbcmmpobjhnomhcdo
-)（和 [gdh1995](https://github.com/gdh1995) 发布的其他扩展）在被发布到“Microsoft Edge 加载项”和“Chrome
-网上应用店”等商店上时，均已向 *所有地区* 的所有人公开。
-但这个行为只是为了让这些插件更容易使用，**并不代表或者暗示**作者 gdh1995 “同意或者不反对”“台湾”一词可以同“中国”并列。
-虽然并列显示这一现状的确**错误地出现**在了这些商店的（开发者）页面中（于2021年6月3日确认）。
-
-根据[《中华人民共和国宪法》](http://www.npc.gov.cn/npc/c505/201803/e87e5cd7c1ce46ef866f4ec8e2d709ea.shtml
-    )和国际共识，***台湾是中华人民共和国的神圣领土（不可分割）的一部分***。
-
-# 其它
-
-https://gitee.com/gdh1995/vimium-c 和 https://github.com/gdh1995/vimium-c 公开了项目源码、版本更新历史、操作手册（Wiki）等。
-如果遇到任何使用上的问题或者有新的功能意见和建议，都可以去仓库的“issues”页面上提出。
+两者均以 [Apache-2.0 许可协议](LICENSE.txt) 开源（2023-07-15 之前的旧代码以 MIT 许可协议发布，
+翻译文件以 CC-BY-SA-4.0 许可协议发布）。完整版权说明见 [NOTICE](NOTICE)。

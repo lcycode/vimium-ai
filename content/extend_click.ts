@@ -12,7 +12,7 @@ import { grabBackFocus, insertInit } from "./insert"
 
 export const ec_main_not_ff = (Build.BTypes !== BrowserType.Firefox as number ? (): void => {
 (function extendClick(this: void, isFirstTime?: boolean): void {
-/** Note(gdh1995):
+/** Note:
  * According to source code of C72,
  *     getElementsByTagName has a special cache (per container node) for tag name queries,
  * and I think it's shared across V8 worlds.

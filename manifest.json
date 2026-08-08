@@ -1,5 +1,5 @@
 {
-  "author": "gdh1995@qq.com",
+  "author": "lcycode",
   "action": {
     "default_icon": {
       "19": "icons/enabled_19.png",
@@ -96,7 +96,7 @@
   },
   "default_locale": "en",
   "description": "__MSG_description__",
-  "homepage_url": "https://github.com/gdh1995/vimium-c",
+  "homepage_url": "https://github.com/lcycode/vimium-ai",
   "host_permissions": [
     "<all_urls>"
   ],

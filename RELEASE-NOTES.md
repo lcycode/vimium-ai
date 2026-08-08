@@ -1,8 +1,8 @@
 Release Notes of Vimium C
 =========================
 
-ReadMe: https://github.com/gdh1995/vimium-c/#readme .<br/>
-说明文档: https://gitee.com/gdh1995/vimium-c#readme , https://github.com/gdh1995/vimium-c/blob/master/README-zh.md .
+ReadMe: https://github.com/lcycode/vimium-ai#readme .<br/>
+说明文档: https://github.com/lcycode/vimium-ai/blob/master/README-zh.md .
 
 #### v2.14
 * update minimum browser version to Chromium 109 and Firefox 115 in the public released packages

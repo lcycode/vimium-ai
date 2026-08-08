@@ -19,5 +19,5 @@ declare const enum Build {
 declare const enum BuildStr {
   Commit = "dev",
   CoreGetterFuncName = "__VimiumC_priv__",
-  FirefoxID = "vimium-c@gdh1995.cn",
+  FirefoxID = "vimium-ai@lcycode",
 }
